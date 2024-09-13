@@ -75,6 +75,9 @@ jobs:
         severity: 'MEDIUM'
       continue-on-error: true
 
+    - name: list file
+      run: ls -lh
+
     - uses: actions/download-artifact@v4
       with:
         name: 'trivy-results.sarif'
