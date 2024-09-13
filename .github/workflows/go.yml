@@ -76,7 +76,8 @@ jobs:
       continue-on-error: true
 
     - name: list file
-      run: ls -lh
+      run: sudo chown docker:docker 'trivy-results.sarif'
+           ls -lh
 
     - uses: actions/download-artifact@v4
       with:
