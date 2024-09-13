@@ -75,12 +75,22 @@ jobs:
         severity: 'MEDIUM'
       continue-on-error: true
 
-    - name: list file
-      run: sudo chown docker trivy-results.sarif
-            | ls -lh
+    - name: Change ownership of Trivy results and list files
+      run: sudo chown $USER trivy-results.sarif
 
-    - uses: actions/download-artifact@v3
+    - name: List files
+      run: ls -lh
+
+    - name: Upload Trivy results
+      uses: actions/upload-artifact@v3
       with:
         name: 'trivy-results.sarif'
+        path: 'trivy-results.sarif'
+
+    - name: Download Trivy results
+      uses: actions/download-artifact@v3
+      with:
+        name: 'trivy-results.sarif'
+
     - name: Display structure of downloaded files
       run: ls -R
