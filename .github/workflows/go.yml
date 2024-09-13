@@ -76,10 +76,10 @@ jobs:
       continue-on-error: true
 
     - name: list file
-      run: sudo chown docker:docker 'trivy-results.sarif' 
+      run: sudo chown docker trivy-results.sarif
             | ls -lh
 
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v3
       with:
         name: 'trivy-results.sarif'
     - name: Display structure of downloaded files
