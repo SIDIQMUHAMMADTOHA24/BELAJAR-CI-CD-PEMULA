@@ -95,14 +95,17 @@ jobs:
     - name: Display structure of downloaded files
       run: ls -R
 
+    - name: Clone SARIF SDK
+      run: git clone https://github.com/microsoft/sarif-sdk
+
     - name: Convert SARIF to HTML
       run: |
-        npm install -g sarif-to-html
-        sarif-to-html -i trivy-results.sarif -o trivy-results.html
+        cd sarif-sdk/src/Sarif.Multitool
+        dotnet tool restore
+        dotnet run -- -i ../../../trivy-results.sarif -o ../../../trivy-results.html
 
     - name: Upload HTML Report
       uses: actions/upload-artifact@v3
       with:
         name: 'trivy-results.html'
         path: 'trivy-results.html'
-
